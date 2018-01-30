@@ -1,11 +1,11 @@
 #!/bin/sh -e
 
-cat /etc/alertmanager/config.yml |\
+cat /etc/alertmanager/alertmanager.yml |\
     sed "s@username: '<user_name>'@username: '$SLACK_USER'@g" |\
     sed "s@channel: '#<channel_name>'@channel: '#$SLACK_CHANNEL'@g" |\
-    sed "s@api_url: '<slack_web_hook_url>'@api_url: '$SLACK_URL'@g" > /tmp/config.yml
+    sed "s@api_url: '<slack_web_hook_url>'@api_url: '$SLACK_URL'@g" > /tmp/alertmanager.yml
 
-mv /tmp/config.yml /etc/alertmanager/config.yml
+mv /tmp/alertmanager.yml /etc/alertmanager/alertmanager.yml
 
 set -- /bin/alertmanager "$@"
 
